@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
@@ -20,7 +21,7 @@ public class MainGUI extends JFrame {
     JButton signUp;
     JButton btnExit;
     JTextField nameText;
-    JTextField passwordText;
+    JPasswordField passwordText;
 
     public MainGUI() {
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,7 +48,7 @@ public class MainGUI extends JFrame {
       password.setBounds(160, 110, 106, 17);
       contentPane.add(password);
 
-      passwordText = new JTextField("");
+      passwordText = new JPasswordField("");
       passwordText.setBounds(160, 135, 130, 30);
       contentPane.add(passwordText);
       
@@ -67,7 +68,8 @@ public class MainGUI extends JFrame {
       signUp = new JButton("Sign Up");
       signUp.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-          // convert_cm_inch();
+          signup();
+          dispose();
         }
       });
       signUp.setBounds(320, 200, 100, 40);
@@ -83,10 +85,11 @@ public class MainGUI extends JFrame {
       contentPane.add(btnExit);
     }
     
-    // void convert_kg_lb() {
-    // 	KgLbGUI kgu = new KgLbGUI();
-    // 	kgu.show();
-    // }
+    void signup() {
+      SignUpGUI s = new SignUpGUI();
+      s.setVisible(true);
+    	s.show();
+    }
     // void convert_cm_inch() {
     // 	CmInchGUI cgu = new CmInchGUI();
     // 	cgu.show();
