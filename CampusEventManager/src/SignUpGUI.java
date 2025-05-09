@@ -165,7 +165,7 @@ public class SignUpGUI extends JFrame {
         } else {
           System.out.println("organizer");
           OrganizerGUI org = new OrganizerGUI(new Organizer(nameText.getText(),
-          usernameText.getText(), "lol", passwordText.getText()));
+          usernameText.getText(), passwordText.getText()));
           org.setVisible(true);
           org.show();
           dispose();
