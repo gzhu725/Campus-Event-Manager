@@ -89,7 +89,6 @@ public class MainGUI extends JFrame {
             }
           }
 
-
            }
       });
       signIn.setBounds(160, 170, 100, 40);

@@ -14,27 +14,31 @@ public class Database {
     return instance;
   }
 
-  private List<Event> events;
-  private List<Student> students;
-  private List<Organizer> organizers;
+  private List<Event> events = new ArrayList<Event>();
+  private List<Student> students = new ArrayList<Student>();
+  private List<Organizer> organizers = new ArrayList<Organizer>();
 
   // "GET" events
   public List<Object> getAllUsers() {
     List<Object> allUsers = new ArrayList<>();
     allUsers.addAll(students);
     allUsers.addAll(organizers);
+    System.out.println(allUsers.toString());
     return allUsers;
   }
 
   public List<Student> getAllStudents() {
+    System.out.println(students.toString());
     return students;
   }
 
   public List<Organizer> getAllOrganizers() {
+    System.out.println(organizers.toString());
     return organizers;
   }
 
   public List<Event> getAllEvents() {
+    System.out.println(events.toString());
     return events;
   }
 
@@ -87,14 +91,6 @@ public class Database {
   public void removeAttendee(Student student, Event event) {
     event.removeAttendee(student);
   }
-
-
-
-
-
-
-
-
 
   
 }

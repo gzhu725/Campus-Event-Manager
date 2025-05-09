@@ -55,6 +55,8 @@ public class RegisteredEventsGUI extends JFrame {
         btnExit.setBounds(350, 270, 80, 30);
         btnExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                StudentGUI studentGUI = new StudentGUI(student);
+                studentGUI.setVisible(true);
                 dispose();  
             }
         });
