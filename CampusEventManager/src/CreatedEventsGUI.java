@@ -98,6 +98,27 @@ public class CreatedEventsGUI extends JFrame {
         });
         contentPane.add(btnDeleteEvent);
 
+        // View Attendee List Button
+        JButton btnViewAttendees = new JButton("View Attendees");
+        btnViewAttendees.setBounds(380, 280, 150, 30);
+        btnViewAttendees.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // ** UNCOMMENT AFTER ATTENDEELISTGUI IS CREATED**
+                // int selectedRow = eventTable.getSelectedRow();
+                // if (selectedRow != -1) {
+                //     Event selectedEvent = events.get(selectedRow);
+                //     AttendeeList al = new AttendeeListGUI(selectedEvent);
+                //     al.setVisible(true);
+                //     dispose(); // Closes the current CreatedEventsGUI
+                // } 
+                // else {
+                //     JOptionPane.showMessageDialog(null, "Please select an event to view attendees.");
+                // }
+            }
+        });
+        contentPane.add(btnViewAttendees);
+
+
         // Exit Button
         btnExit = new JButton("Exit");
         btnExit.setBounds(380, 280, 100, 30);
