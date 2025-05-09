@@ -26,10 +26,12 @@ public class SignUpGUI extends JFrame {
   JTextField nameText;
   JPasswordField passwordText;
   JPasswordField confirmPassText;
+  JTextField firstNameText;
+  JTextField lastNameText;
   JButton btnSignUp;
   JButton btnBack;
   String userType; // has to be student or organizer
-  ButtonGroup userTypeGroup = new ButtonGroup();  // student and organizer buttons
+  ButtonGroup userTypeGroup = new ButtonGroup(); // student and organizer buttons
 
   public SignUpGUI() {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,28 +92,44 @@ public class SignUpGUI extends JFrame {
   }
 
   void showText() {
+    JLabel firstName = new JLabel("First Name:");
+    firstName.setBounds(160, 200, 106, 17);
+    contentPane.add(firstName);
+
+    firstNameText = new JTextField("");
+    firstNameText.setBounds(160, 225, 130, 30);
+    contentPane.add(firstNameText);
+
+    JLabel lastName = new JLabel("Last Name:");
+    lastName.setBounds(290, 200, 106, 17);
+    contentPane.add(lastName);
+
+    lastNameText = new JTextField("");
+    lastNameText.setBounds(290, 225, 130, 30);
+    contentPane.add(lastNameText);
+
     name = new JLabel("Username:");
-    name.setBounds(160, 200, 106, 17);
+    name.setBounds(160, 260, 106, 17);
     contentPane.add(name);
 
     nameText = new JTextField("");
-    nameText.setBounds(160, 225, 130, 30);
+    nameText.setBounds(160, 285, 130, 30);
     contentPane.add(nameText);
 
     password = new JLabel("Password:");
-    password.setBounds(160, 260, 106, 17);
+    password.setBounds(160, 325, 106, 17);
     contentPane.add(password);
 
     passwordText = new JPasswordField("");
-    passwordText.setBounds(160, 285, 130, 30);
+    passwordText.setBounds(160, 350, 130, 30);
     contentPane.add(passwordText);
 
     confirmPass = new JLabel("Confirm Password:");
-    confirmPass.setBounds(160, 320, 130, 17);
+    confirmPass.setBounds(160, 400, 130, 17);
     contentPane.add(confirmPass);
 
     confirmPassText = new JPasswordField("");
-    confirmPassText.setBounds(160, 345, 130, 30);
+    confirmPassText.setBounds(160, 425, 130, 30);
     contentPane.add(confirmPassText);
 
     btnSignUp = new JButton("Sign Up");
@@ -120,6 +138,14 @@ public class SignUpGUI extends JFrame {
 
         if (userType == null) {
           JOptionPane.showMessageDialog(contentPane, "You must select either Student or Organizer.");
+          return;
+        }
+        if (firstNameText.getText().trim().isEmpty()) {
+          JOptionPane.showMessageDialog(contentPane, "You must enter a first name.");
+          return;
+        }
+        if (lastNameText.getText().trim().isEmpty()) {
+          JOptionPane.showMessageDialog(contentPane, "You must enter a last name.");
           return;
         }
 
@@ -158,7 +184,7 @@ public class SignUpGUI extends JFrame {
         }
       }
     });
-    btnSignUp.setBounds(160, 380, 100, 40);
+    btnSignUp.setBounds(160, 475, 100, 40);
     contentPane.add(btnSignUp);
   }
 }
