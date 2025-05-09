@@ -51,9 +51,24 @@ public class CreateEventGUI extends JFrame {
         txtLocation.setBounds(130, 100, 300, 25);
         contentPane.add(txtLocation);
 
+        JLabel timeLabel = new JLabel("Time:");
+        timeLabel.setBounds(20, 140, 100, 20);
+        contentPane.add(timeLabel);
+        JTextField timeText = new JTextField();
+        timeText.setBounds(130, 140, 300, 25);
+        contentPane.add(timeText);
+
+        JLabel descriptionLabel = new JLabel("Description:");
+        descriptionLabel.setBounds(20, 180, 100, 20);
+        contentPane.add(descriptionLabel);
+
+        JTextArea descriptionText = new JTextArea();
+        descriptionText.setBounds(130, 180, 300, 100);
+        contentPane.add(descriptionText);
+
         // Save Button
         btnSave = new JButton("Save Event");
-        btnSave.setBounds(150, 150, 150, 30);
+        btnSave.setBounds(150, 300, 150, 30);
         btnSave.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Add Event to Organizer's list
@@ -78,7 +93,7 @@ public class CreateEventGUI extends JFrame {
 
         // Exit Button
         btnExit = new JButton("Exit");
-        btnExit.setBounds(310, 150, 80, 30);
+        btnExit.setBounds(310, 300, 80, 30);
         btnExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();

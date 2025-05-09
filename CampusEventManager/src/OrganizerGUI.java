@@ -39,7 +39,8 @@ public class OrganizerGUI extends JFrame {
         btnCreateEvent = new JButton("Create Event");
         btnCreateEvent.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // new CreateEventGUI(organizer);
+                new CreateEventGUI(organizer);
+                dispose();
             }
         });
         btnCreateEvent.setBounds(150, 80, 200, 40);
