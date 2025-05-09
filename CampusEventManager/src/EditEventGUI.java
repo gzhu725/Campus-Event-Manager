@@ -3,7 +3,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class EditEventsGUI extends JFrame {
+public class EditEventGUI extends JFrame {
 
     private JPanel contentPane;
     private JTextField txtName;
@@ -15,7 +15,7 @@ public class EditEventsGUI extends JFrame {
     private JButton btnCancel;
     private Event event;  // pass this directly 
 
-    public EditEventsGUI(Event event) {
+    public EditEventGUI(Event event) {
         this.event = event;
         
         setTitle("Edit Event");
@@ -31,7 +31,7 @@ public class EditEventsGUI extends JFrame {
         lblName.setBounds(20, 20, 100, 25);
         contentPane.add(lblName);
 
-        txtName = new JTextField(event.getName());
+        // txtName = new JTextField(event.getName());
         txtName.setBounds(130, 20, 400, 25);
         contentPane.add(txtName);
 
@@ -39,7 +39,7 @@ public class EditEventsGUI extends JFrame {
         lblDate.setBounds(20, 60, 100, 25);
         contentPane.add(lblDate);
 
-        txtDate = new JTextField(event.getDate());
+        // txtDate = new JTextField(event.getDate());
         txtDate.setBounds(130, 60, 400, 25);
         contentPane.add(txtDate);
 
@@ -47,7 +47,7 @@ public class EditEventsGUI extends JFrame {
         lblLocation.setBounds(20, 100, 100, 25);
         contentPane.add(lblLocation);
 
-        txtLocation = new JTextField(event.getLocation());
+        // txtLocation = new JTextField(event.getLocation());
         txtLocation.setBounds(130, 100, 400, 25);
         contentPane.add(txtLocation);
 
@@ -55,7 +55,7 @@ public class EditEventsGUI extends JFrame {
         lblTime.setBounds(20, 140, 100, 25);
         contentPane.add(lblTime);
 
-        txtTime = new JTextField(event.getTime());
+        // txtTime = new JTextField(event.getTime());
         txtTime.setBounds(130, 140, 400, 25);
         contentPane.add(txtTime);
 
@@ -63,7 +63,7 @@ public class EditEventsGUI extends JFrame {
         lblDescription.setBounds(20, 180, 100, 25);
         contentPane.add(lblDescription);
 
-        txtDescription = new JTextField(event.getDescription());
+        // txtDescription = new JTextField(event.getDescription());
         txtDescription.setBounds(130, 180, 400, 25);
         contentPane.add(txtDescription);
 
@@ -73,11 +73,11 @@ public class EditEventsGUI extends JFrame {
         btnSave.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Directly update the event object
-                event.setName(txtName.getText());
-                event.setDate(txtDate.getText());
-                event.setLocation(txtLocation.getText());
-                event.setTime(txtTime.getText());
-                event.setDescription(txtDescription.getText());
+                // event.setName(txtName.getText());
+                // event.setDate(txtDate.getText());
+                // event.setLocation(txtLocation.getText());
+                // event.setTime(txtTime.getText());
+                // event.setDescription(txtDescription.getText());
 
                 JOptionPane.showMessageDialog(null, "Event updated successfully!");
                 dispose();

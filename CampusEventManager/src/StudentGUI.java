@@ -17,14 +17,10 @@ public class StudentGUI extends JFrame {
 
     // Student associated with this session
     private Student student;
-    // ***WAITING FOR EVENT CLASS TO BE IMPLEMENTED***
-    // private List<Event> allEvents;
 
     // Builds the GUI using the provided Student object
-    // ***REMEMBER TO ADD List<Event> allEvents BACK AS A PARAMETER***
     public StudentGUI(Student student) {
         this.student = student;
-        // this.allEvents = allEvents;
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 500, 300);
@@ -43,7 +39,7 @@ public class StudentGUI extends JFrame {
         btnViewEvents = new JButton("View Upcoming Events");
         btnViewEvents.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // new UpcomingEventsGUI(student, allEvents);
+                // new UpcomingEventsGUI(student);
             }
         });
         btnViewEvents.setBounds(150, 80, 200, 40);
@@ -53,7 +49,9 @@ public class StudentGUI extends JFrame {
         btnViewRegistered = new JButton("View Registered Events");
         btnViewRegistered.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // new RegisteredEventsGUI(student);
+                RegisteredEventsGUI re = new RegisteredEventsGUI(student);
+                re.setVisible(true);
+                dispose(); // Closes the current StudentGUI
             }
         });
         btnViewRegistered.setBounds(150, 140, 200, 40);

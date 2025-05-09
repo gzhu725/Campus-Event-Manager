@@ -20,14 +20,13 @@ public class SignUpGUI extends JFrame {
   JLabel or;
   JButton btnStudent;
   JButton btnOrganizer;
-  JLabel name;
+  JLabel username;
   JLabel password;
   JLabel confirmPass;
-  JTextField nameText;
+  JTextField usernameText;
   JPasswordField passwordText;
   JPasswordField confirmPassText;
-  JTextField firstNameText;
-  JTextField lastNameText;
+  JTextField nameText;
   JButton btnSignUp;
   JButton btnBack;
   String userType; // has to be student or organizer
@@ -92,29 +91,21 @@ public class SignUpGUI extends JFrame {
   }
 
   void showText() {
-    JLabel firstName = new JLabel("First Name:");
+    JLabel firstName = new JLabel("Name:");
     firstName.setBounds(160, 200, 106, 17);
     contentPane.add(firstName);
 
-    firstNameText = new JTextField("");
-    firstNameText.setBounds(160, 225, 130, 30);
-    contentPane.add(firstNameText);
-
-    JLabel lastName = new JLabel("Last Name:");
-    lastName.setBounds(290, 200, 106, 17);
-    contentPane.add(lastName);
-
-    lastNameText = new JTextField("");
-    lastNameText.setBounds(290, 225, 130, 30);
-    contentPane.add(lastNameText);
-
-    name = new JLabel("Username:");
-    name.setBounds(160, 260, 106, 17);
-    contentPane.add(name);
-
     nameText = new JTextField("");
-    nameText.setBounds(160, 285, 130, 30);
+    nameText.setBounds(160, 225, 130, 30);
     contentPane.add(nameText);
+
+    username = new JLabel("Username:");
+    username.setBounds(160, 260, 106, 17);
+    contentPane.add(username);
+
+    usernameText = new JTextField("");
+    usernameText.setBounds(160, 285, 130, 30);
+    contentPane.add(usernameText);
 
     password = new JLabel("Password:");
     password.setBounds(160, 325, 106, 17);
@@ -140,16 +131,12 @@ public class SignUpGUI extends JFrame {
           JOptionPane.showMessageDialog(contentPane, "You must select either Student or Organizer.");
           return;
         }
-        if (firstNameText.getText().trim().isEmpty()) {
+        if (nameText.getText().trim().isEmpty()) {
           JOptionPane.showMessageDialog(contentPane, "You must enter a first name.");
           return;
         }
-        if (lastNameText.getText().trim().isEmpty()) {
-          JOptionPane.showMessageDialog(contentPane, "You must enter a last name.");
-          return;
-        }
 
-        if (nameText.getText().trim().isEmpty()) {
+        if (usernameText.getText().trim().isEmpty()) {
           JOptionPane.showMessageDialog(contentPane, "You must enter a name.");
           return;
         }
@@ -170,7 +157,7 @@ public class SignUpGUI extends JFrame {
           return;
         }
         if (userType.equals("Student")) {
-          StudentGUI st = new StudentGUI(new Student(nameText.getText(), nameText.getText(), passwordText.getText()));
+          StudentGUI st = new StudentGUI(new Student(nameText.getText(), usernameText.getText(), passwordText.getText()));
           st.setVisible(true);
           st.show();
           dispose();
