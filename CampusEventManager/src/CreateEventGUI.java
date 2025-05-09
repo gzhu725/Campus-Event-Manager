@@ -12,6 +12,7 @@ public class CreateEventGUI extends JFrame {
     private JButton btnSave;
     private JButton btnExit;
     private Organizer organizer;
+    private Database db = Database.getInstance();
 
     public CreateEventGUI(Organizer organizer) {
         this.organizer = organizer;
@@ -75,10 +76,13 @@ public class CreateEventGUI extends JFrame {
                 String name = txtName.getText();
                 String date = txtDate.getText();
                 String location = txtLocation.getText();
+                String time = timeText.getText();
+                String description = descriptionText.getText();
                 
                 if (!name.isEmpty() && !date.isEmpty() && !location.isEmpty()) {
                     /* asuming Event class has a constructor like Event(String name, String date, String location) */
-                    // Event event = new Event(name, date, location);
+                    Event event = new Event(name, date, location, time, description, organizer);
+                    db.addEvent(event);
                     // organizer.createEvent(event);
 
                     JOptionPane.showMessageDialog(null, "Event created successfully!");

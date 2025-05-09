@@ -18,6 +18,10 @@ public class Event {
     this.organizer = organizer;
   }
 
+  public Organizer getOrganizer() {
+    return organizer;
+  }
+  
   public String getName() {
     return name;
   }
@@ -62,7 +66,7 @@ public class Event {
     }
   }
 
-  public List<Student> getAttendeeList() {
+  public List<Student> getAttendees() {
     return attendees;
   }
 

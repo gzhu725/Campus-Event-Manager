@@ -31,6 +31,7 @@ public class SignUpGUI extends JFrame {
   JButton btnBack;
   String userType; // has to be student or organizer
   ButtonGroup userTypeGroup = new ButtonGroup(); // student and organizer buttons
+  Database db = Database.getInstance();
 
   public SignUpGUI() {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -158,14 +159,16 @@ public class SignUpGUI extends JFrame {
           return;
         }
         if (userType.equals("Student")) {
-          StudentGUI st = new StudentGUI(new Student(nameText.getText(), usernameText.getText(), passwordText.getText()));
+          Student s = new Student(nameText.getText(), usernameText.getText(), passwordText.getText());
+          db.addStudent(s);
+          StudentGUI st = new StudentGUI(s);
           st.setVisible(true);
           st.show();
           dispose();
         } else {
-          System.out.println("organizer");
-          OrganizerGUI org = new OrganizerGUI(new Organizer(nameText.getText(),
-          usernameText.getText(), passwordText.getText()));
+          Organizer o = new Organizer(nameText.getText(), usernameText.getText(), passwordText.getText());
+          db.addOrganizer(o);
+          OrganizerGUI org = new OrganizerGUI(o);
           org.setVisible(true);
           org.show();
           dispose();
