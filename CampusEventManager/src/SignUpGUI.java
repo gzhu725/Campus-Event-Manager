@@ -132,12 +132,13 @@ public class SignUpGUI extends JFrame {
           return;
         }
         if (nameText.getText().trim().isEmpty()) {
-          JOptionPane.showMessageDialog(contentPane, "You must enter a first name.");
+          System.out.println(nameText.getText());
+          JOptionPane.showMessageDialog(contentPane, "You must enter a name.");
           return;
         }
 
         if (usernameText.getText().trim().isEmpty()) {
-          JOptionPane.showMessageDialog(contentPane, "You must enter a name.");
+          JOptionPane.showMessageDialog(contentPane, "You must enter a username.");
           return;
         }
 
@@ -163,11 +164,11 @@ public class SignUpGUI extends JFrame {
           dispose();
         } else {
           System.out.println("organizer");
-          // OrganizerGUI org = new OrganizerGUI(new Organizer(nameText.getText(),
-          // nameText.getText(), passwordText.getText()));
-          // org.setVisible(true);
-          // org.show();
-          // dispose();
+          OrganizerGUI org = new OrganizerGUI(new Organizer(nameText.getText(),
+          usernameText.getText(), "lol", passwordText.getText()));
+          org.setVisible(true);
+          org.show();
+          dispose();
         }
       }
     });

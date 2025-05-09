@@ -40,9 +40,9 @@ public class RegisteredEventsGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Event selectedEvent = eventList.getSelectedValue();
                 if (selectedEvent != null) {
-                    // student.cancelRegistration(selectedEvent);
+                    student.cancelRegistration(selectedEvent);
                     listModel.removeElement(selectedEvent);
-                    // JOptionPane.showMessageDialog(null, "You have canceled your registration for: " + selectedEvent.getName());
+                    JOptionPane.showMessageDialog(null, "You have canceled your registration for: " + selectedEvent.getName());
                 } else {
                     JOptionPane.showMessageDialog(null, "Please select an event to cancel.");
                 }
@@ -60,7 +60,7 @@ public class RegisteredEventsGUI extends JFrame {
         });
         contentPane.add(btnExit);
 
-        // displayRegisteredEvents(student.getRegisteredEvents());
+        displayRegisteredEvents(student.getRegisteredEvents());
         setVisible(true);
     }
 
