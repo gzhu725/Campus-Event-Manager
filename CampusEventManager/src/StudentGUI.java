@@ -4,7 +4,6 @@ import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.awt.event.ActionEvent;
 
 // StudentGUI represents the main dashboard window shown to a logged-in student
@@ -18,12 +17,10 @@ public class StudentGUI extends JFrame {
 
     // Student associated with this session
     private Student student;
-    private List<Event> allEvents;
 
     // Builds the GUI using the provided Student object
-    public StudentGUI(Student student, List<Event> allEvents) {
+    public StudentGUI(Student student) {
         this.student = student;
-        this.allEvents = allEvents;
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 500, 300);
@@ -42,7 +39,7 @@ public class StudentGUI extends JFrame {
         btnViewEvents = new JButton("View Upcoming Events");
         btnViewEvents.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // new UpcomingEventsGUI(student, allEvents);
+                // new UpcomingEventsGUI(student);
             }
         });
         btnViewEvents.setBounds(150, 80, 200, 40);
