@@ -39,7 +39,9 @@ public class StudentGUI extends JFrame {
         btnViewEvents = new JButton("View Upcoming Events");
         btnViewEvents.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // new UpcomingEventsGUI(student);
+                UpcomingEventsGUI ue = new UpcomingEventsGUI(student);
+                ue.setVisible(true);
+                dispose(); // Closes the current StudentGUI
             }
         });
         btnViewEvents.setBounds(150, 80, 200, 40);
