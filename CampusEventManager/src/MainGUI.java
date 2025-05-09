@@ -9,18 +9,19 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.*;
 
 public class MainGUI extends JFrame {
 
     private JPanel contentPane;
     JLabel welcome;
-    JLabel name;
+    JLabel username;
     JLabel password;
     JLabel toSignUp;
     JButton signIn;
     JButton signUp;
     JButton btnExit;
-    JTextField nameText;
+    JTextField usernameText;
     JPasswordField passwordText;
 
     public MainGUI() {
@@ -36,13 +37,13 @@ public class MainGUI extends JFrame {
       welcome.setBounds(160, 18, 106 ,17);
       contentPane.add(welcome);
 
-      name = new JLabel("Username:");
-      name.setBounds(160, 50, 106, 17);
-      contentPane.add(name);
+      username = new JLabel("Username:");
+      username.setBounds(160, 50, 106, 17);
+      contentPane.add(username);
 
-      nameText = new JTextField("");
-      nameText.setBounds(160, 75, 130, 30);
-      contentPane.add(nameText);
+      usernameText = new JTextField("");
+      usernameText.setBounds(160, 75, 130, 30);
+      contentPane.add(usernameText);
 
       password = new JLabel("Password:");
       password.setBounds(160, 110, 106, 17);
@@ -55,8 +56,41 @@ public class MainGUI extends JFrame {
       signIn = new JButton("Sign In");
       signIn.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-          // convert_kg_lb();
-        }
+          Database db = Database.getInstance();
+          String username = usernameText.getText();
+          String password = new String(passwordText.getPassword());
+
+          List<Student> allStudents = db.getAllStudents();
+          List<Organizer> allOrganizers = db.getAllOrganizers();
+
+          if (allStudents == null || allOrganizers == null) {
+            System.out.println("Database returned null for user lists.");
+            return;
+          }
+
+          if (allStudents.isEmpty() && allOrganizers.isEmpty()) {
+            System.out.println("No users found in the database.");
+            return;
+          }
+
+          for(Student s : allStudents) {
+            if(s.getUsername().equals(username) && s.getPassword().equals(password)) {
+              StudentGUI studentGUI = new StudentGUI(s);
+              studentGUI.setVisible(true);
+              dispose();
+            }
+          }
+
+          for(Organizer o : allOrganizers) {
+            if(o.getUsername().equals(username) && o.getPassword().equals(password)) {
+              OrganizerGUI organizerGUI = new OrganizerGUI(o);
+              organizerGUI.setVisible(true);
+              dispose();
+            }
+          }
+
+
+           }
       });
       signIn.setBounds(160, 170, 100, 40);
       contentPane.add(signIn);
@@ -90,9 +124,6 @@ public class MainGUI extends JFrame {
       s.setVisible(true);
     	s.show();
     }
-    // void convert_cm_inch() {
-    // 	CmInchGUI cgu = new CmInchGUI();
-    // 	cgu.show();
-    // }
+    
   }
 
