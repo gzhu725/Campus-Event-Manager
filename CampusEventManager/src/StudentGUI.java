@@ -63,7 +63,7 @@ public class StudentGUI extends JFrame {
         btnExit = new JButton("Exit");
         btnExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(ABORT);
+                dispose(); // Close this window
             }
         });
         btnExit.setBounds(200, 200, 100, 40);
