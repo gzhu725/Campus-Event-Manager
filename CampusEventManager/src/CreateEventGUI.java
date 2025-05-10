@@ -1,14 +1,15 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CreateEventGUI extends JFrame {
 
     private JPanel contentPane;
-    private JTextField txtName;
     private JTextField txtDate;
     private JTextField txtLocation;
+    private JTextField timeText;
+    private JTextArea descriptionText;
     private JButton btnSave;
     private JButton btnExit;
     private Organizer organizer;
@@ -16,7 +17,7 @@ public class CreateEventGUI extends JFrame {
 
     public CreateEventGUI(Organizer organizer) {
         this.organizer = organizer;
-        
+
         setTitle("Create Event");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 500, 400);
@@ -55,7 +56,8 @@ public class CreateEventGUI extends JFrame {
         JLabel timeLabel = new JLabel("Time:");
         timeLabel.setBounds(20, 140, 100, 20);
         contentPane.add(timeLabel);
-        JTextField timeText = new JTextField();
+
+        timeText = new JTextField();
         timeText.setBounds(130, 140, 300, 25);
         contentPane.add(timeText);
 
@@ -63,43 +65,49 @@ public class CreateEventGUI extends JFrame {
         descriptionLabel.setBounds(20, 180, 100, 20);
         contentPane.add(descriptionLabel);
 
-        JTextArea descriptionText = new JTextArea();
-        descriptionText.setBounds(130, 180, 300, 100);
+        descriptionText = new JTextArea();
+        descriptionText.setBounds(130, 180, 300, 80);
+        descriptionText.setLineWrap(true);
+        descriptionText.setWrapStyleWord(true);
         contentPane.add(descriptionText);
 
-        // Save Button
         btnSave = new JButton("Save Event");
         btnSave.setBounds(150, 300, 150, 30);
+        // action listener for saving the event
         btnSave.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Add Event to Organizer's list
-                String name = txtName.getText();
-                String date = txtDate.getText();
-                String location = txtLocation.getText();
-                String time = timeText.getText();
-                String description = descriptionText.getText();
-                
+                // get the input values 
+                String name = txtName.getText().trim();
+                String date = txtDate.getText().trim();
+                String location = txtLocation.getText().trim();
+                String time = timeText.getText().trim();
+                String description = descriptionText.getText().trim();
+
                 if (!name.isEmpty() && !date.isEmpty() && !location.isEmpty()) {
-                    /* asuming Event class has a constructor like Event(String name, String date, String location) */
+                    // create new event object
                     Event event = new Event(name, date, location, time, description, organizer);
                     db.addEvent(event);
-                    // organizer.createEvent(event);
+                    organizer.createEvent(event);
+                    db.saveAll(); 
 
                     JOptionPane.showMessageDialog(null, "Event created successfully!");
-                    dispose();  
-                } 
-                else {
-                    JOptionPane.showMessageDialog(null, "Please fill all fields!");
+
+                    new OrganizerGUI(organizer).setVisible(true);
+                    // close the window 
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please fill in all required fields!");
                 }
             }
         });
         contentPane.add(btnSave);
 
-        // Exit Button
-        btnExit = new JButton("Exit");
-        btnExit.setBounds(310, 300, 80, 30);
+        // button to go back to the previous window
+        btnExit = new JButton("Cancel");
+        btnExit.setBounds(310, 300, 100, 30);
         btnExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                new OrganizerGUI(organizer).setVisible(true);
                 dispose();
             }
         });
