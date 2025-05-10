@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public class CreateEventGUI extends JFrame {
 
     private JPanel contentPane;
+    private JTextField txtName;
     private JTextField txtDate;
     private JTextField txtLocation;
     private JTextField timeText;
