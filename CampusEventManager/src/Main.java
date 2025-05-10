@@ -1,8 +1,8 @@
 public class Main {
   public static void main(String[] args) {
-    MainGUI m = new MainGUI();
-    m.show();
+      Database.getInstance().loadAll();
 
+      MainGUI m = new MainGUI();
+      m.setVisible(true);
   }
-  
 }

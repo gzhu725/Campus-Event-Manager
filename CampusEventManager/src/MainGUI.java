@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -14,115 +15,100 @@ import java.util.*;
 public class MainGUI extends JFrame {
 
     private JPanel contentPane;
-    JLabel welcome;
-    JLabel username;
-    JLabel password;
-    JLabel toSignUp;
-    JButton signIn;
-    JButton signUp;
-    JButton btnExit;
+    JLabel welcome, username, password, toSignUp;
+    JButton signIn, signUp, btnExit;
     JTextField usernameText;
     JPasswordField passwordText;
 
     public MainGUI() {
-      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      setBounds(100, 100, 600, 600);
-      contentPane = new JPanel();
-      contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-  
-      setContentPane(contentPane);
-      contentPane.setLayout(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 600, 600);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-      welcome = new JLabel("Welcome!");
-      welcome.setBounds(160, 18, 106 ,17);
-      contentPane.add(welcome);
+        welcome = new JLabel("Welcome!");
+        welcome.setBounds(160, 18, 106 ,17);
+        contentPane.add(welcome);
 
-      username = new JLabel("Username:");
-      username.setBounds(160, 50, 106, 17);
-      contentPane.add(username);
+        username = new JLabel("Username:");
+        username.setBounds(160, 50, 106, 17);
+        contentPane.add(username);
 
-      usernameText = new JTextField("");
-      usernameText.setBounds(160, 75, 130, 30);
-      contentPane.add(usernameText);
+        usernameText = new JTextField("");
+        usernameText.setBounds(160, 75, 130, 30);
+        contentPane.add(usernameText);
 
-      password = new JLabel("Password:");
-      password.setBounds(160, 110, 106, 17);
-      contentPane.add(password);
+        password = new JLabel("Password:");
+        password.setBounds(160, 110, 106, 17);
+        contentPane.add(password);
 
-      passwordText = new JPasswordField("");
-      passwordText.setBounds(160, 135, 130, 30);
-      contentPane.add(passwordText);
-      
-      signIn = new JButton("Sign In");
-      signIn.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          Database db = Database.getInstance();
-          String username = usernameText.getText();
-          String password = new String(passwordText.getPassword());
+        passwordText = new JPasswordField("");
+        passwordText.setBounds(160, 135, 130, 30);
+        contentPane.add(passwordText);
 
-          List<Student> allStudents = db.getAllStudents();
-          List<Organizer> allOrganizers = db.getAllOrganizers();
+        signIn = new JButton("Sign In");
+        signIn.setBounds(160, 170, 100, 40);
+        signIn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Database db = Database.getInstance();
+                db.loadAll();
 
-          if (allStudents == null || allOrganizers == null) {
-            System.out.println("Database returned null for user lists.");
-            return;
-          }
+                String username = usernameText.getText();
+                String password = new String(passwordText.getPassword());
 
-          if (allStudents.isEmpty() && allOrganizers.isEmpty()) {
-            System.out.println("No users found in the database.");
-            return;
-          }
+                boolean loginSuccessful = false;
 
-          for(Student s : allStudents) {
-            if(s.getUsername().equals(username) && s.getPassword().equals(password)) {
-              StudentGUI studentGUI = new StudentGUI(s);
-              studentGUI.setVisible(true);
-              dispose();
+                //check for valid login credentials
+                for(Student s : db.getAllStudents()) {
+                    if(s.getUsername().equals(username) && s.getPassword().equals(password)) {
+                        new StudentGUI(s).setVisible(true);
+                        loginSuccessful = true;
+                        dispose();
+                        return;
+                    }
+                }
+
+                for(Organizer o : db.getAllOrganizers()) {
+                    if(o.getUsername().equals(username) && o.getPassword().equals(password)) {
+                        new OrganizerGUI(o).setVisible(true);
+                        loginSuccessful = true;
+                        dispose();
+                        return;
+                    }
+                }
+
+                if (!loginSuccessful) {
+                    JOptionPane.showMessageDialog(null, "Incorrect username or password.");
+                }
             }
-          }
+        });
+        contentPane.add(signIn);
 
-          for(Organizer o : allOrganizers) {
-            if(o.getUsername().equals(username) && o.getPassword().equals(password)) {
-              OrganizerGUI organizerGUI = new OrganizerGUI(o);
-              organizerGUI.setVisible(true);
-              dispose();
+        toSignUp = new JLabel("Don't have an account?");
+        toSignUp.setBounds(160, 190, 155, 60);
+        contentPane.add(toSignUp);
+
+        signUp = new JButton("Sign Up");
+        signUp.setBounds(320, 200, 100, 40);
+        signUp.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new SignUpGUI().setVisible(true);
+                dispose();
             }
-          }
+        });
+        contentPane.add(signUp);
 
-           }
-      });
-      signIn.setBounds(160, 170, 100, 40);
-      contentPane.add(signIn);
+        btnExit = new JButton("Exit");
+        btnExit.setBounds(159, 250, 100, 40);
+        btnExit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        contentPane.add(btnExit);
+    }
+}
 
-      toSignUp = new JLabel("Don't have an account?");
-      toSignUp.setBounds(160, 190, 155, 60);
-      contentPane.add(toSignUp);
-      
-      signUp = new JButton("Sign Up");
-      signUp.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          signup();
-          dispose();
-        }
-      });
-      signUp.setBounds(320, 200, 100, 40);
-      contentPane.add(signUp);
-      
-      btnExit = new JButton("Exit");
-      btnExit.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          System.exit(ABORT);
-        }
-      });
-      btnExit.setBounds(159, 250, 100, 40);
-      contentPane.add(btnExit);
-    }
-    
-    void signup() {
-      SignUpGUI s = new SignUpGUI();
-      s.setVisible(true);
-    	s.show();
-    }
-    
-  }
 
