@@ -17,7 +17,7 @@ public class UpcomingEventsGUI extends JFrame {
 
     public UpcomingEventsGUI(Student student) {
         this.student = student;
-        // this.allEvents = Database.getEvents();
+        this.allEvents = Database.getInstance().getAllEvents(); // Load from DB
 
         // Set up the main window
         setTitle("Upcoming Events");
@@ -65,13 +65,12 @@ public class UpcomingEventsGUI extends JFrame {
                     Event selectedEvent = allEvents.get(selectedRow);
                     if (student.getRegisteredEvents().contains(selectedEvent)) {
                         JOptionPane.showMessageDialog(null, "You are already registered for this event.");
-                    } 
-                    else {
+                    } else {
                         student.registerEvent(selectedEvent);
+                        Database.getInstance().saveAll(); // Save registration
                         JOptionPane.showMessageDialog(null, "Successfully registered for: " + selectedEvent.getName());
                     }
-                } 
-                else {
+                } else {
                     JOptionPane.showMessageDialog(null, "Please select an event to register.");
                 }
             }
@@ -79,11 +78,12 @@ public class UpcomingEventsGUI extends JFrame {
         contentPane.add(btnRegister);
 
         // Exit Button
-        btnExit = new JButton("Exit");
+        btnExit = new JButton("Back");
         btnExit.setBounds(350, 280, 100, 30);
         btnExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose(); // Close window
+                new StudentGUI(student).setVisible(true); // Go back to dashboard
+                dispose(); // Closes window
             }
         });
         contentPane.add(btnExit);
