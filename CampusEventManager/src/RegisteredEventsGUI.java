@@ -25,23 +25,32 @@ public class RegisteredEventsGUI extends JFrame {
         setContentPane(contentPane);
 
         JLabel lblEvents = new JLabel("My Registered Events:");
-        lblEvents.setBounds(20, 20, 150, 20);
+        lblEvents.setBounds(20, 20, 300, 20);
         contentPane.add(lblEvents);
 
-        // List of registered events
+        // event list 
         listModel = new DefaultListModel<>();
         eventList = new JList<>(listModel);
-        eventList.setBounds(20, 50, 400, 200);
-        contentPane.add(eventList);
+        eventList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        // scroll pane to make the list scrollable
+        JScrollPane scrollPane = new JScrollPane(eventList);
+        scrollPane.setBounds(20, 50, 440, 200);
+        contentPane.add(scrollPane);
 
         btnCancelRegistration = new JButton("Cancel Registration");
-        btnCancelRegistration.setBounds(150, 270, 180, 30);
+        btnCancelRegistration.setBounds(100, 270, 180, 30);
+
+        // action listener to handle button click
         btnCancelRegistration.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Event selectedEvent = eventList.getSelectedValue();
+
                 if (selectedEvent != null) {
+                    // cancel the registration for the event
                     student.cancelRegistration(selectedEvent);
+                    // remove it from the list 
                     listModel.removeElement(selectedEvent);
+                    Database.getInstance().saveAll(); 
                     JOptionPane.showMessageDialog(null, "You have canceled your registration for: " + selectedEvent.getName());
                 } else {
                     JOptionPane.showMessageDialog(null, "Please select an event to cancel.");
@@ -50,14 +59,13 @@ public class RegisteredEventsGUI extends JFrame {
         });
         contentPane.add(btnCancelRegistration);
 
-        // Exit button
-        btnExit = new JButton("Exit");
-        btnExit.setBounds(350, 270, 80, 30);
+        // exit button
+        btnExit = new JButton("Back");
+        btnExit.setBounds(300, 270, 100, 30);
         btnExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                StudentGUI studentGUI = new StudentGUI(student);
-                studentGUI.setVisible(true);
-                dispose();  
+                new StudentGUI(student).setVisible(true);
+                dispose();
             }
         });
         contentPane.add(btnExit);
@@ -66,7 +74,7 @@ public class RegisteredEventsGUI extends JFrame {
         setVisible(true);
     }
 
-    // Populates the list with registered events
+    // method to load all the registered events
     private void displayRegisteredEvents(List<Event> events) {
         listModel.clear();
         for (Event event : events) {
