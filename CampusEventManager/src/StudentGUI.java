@@ -22,11 +22,11 @@ public class StudentGUI extends JFrame {
     public StudentGUI(Student student) {
         this.student = student;
 
+        setTitle("Student Dashboard");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 500, 300);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
@@ -37,36 +37,36 @@ public class StudentGUI extends JFrame {
 
         // Button to view upcoming events
         btnViewEvents = new JButton("View Upcoming Events");
+        btnViewEvents.setBounds(150, 80, 200, 40);
         btnViewEvents.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                UpcomingEventsGUI ue = new UpcomingEventsGUI(student);
-                ue.setVisible(true);
-                dispose(); // Closes the current StudentGUI
+                new UpcomingEventsGUI(student).setVisible(true);
+                dispose();
             }
         });
-        btnViewEvents.setBounds(150, 80, 200, 40);
         contentPane.add(btnViewEvents);
 
         // Button to view events the student has registered for
         btnViewRegistered = new JButton("View Registered Events");
+        btnViewRegistered.setBounds(150, 140, 200, 40);
         btnViewRegistered.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                RegisteredEventsGUI re = new RegisteredEventsGUI(student);
-                re.setVisible(true);
-                dispose(); // Closes the current StudentGUI
+                new RegisteredEventsGUI(student).setVisible(true);
+                dispose();
             }
         });
-        btnViewRegistered.setBounds(150, 140, 200, 40);
         contentPane.add(btnViewRegistered);
 
         // Button to exit the application
-        btnExit = new JButton("Exit");
+        btnExit = new JButton("Log Out");
+        btnExit.setBounds(200, 200, 100, 40);
         btnExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose(); // Close this window
+                Database.getInstance().saveAll(); // Save before exiting
+                new MainGUI().setVisible(true); // Return to login
+                dispose();
             }
         });
-        btnExit.setBounds(200, 200, 100, 40);
         contentPane.add(btnExit);
 
         setVisible(true);
