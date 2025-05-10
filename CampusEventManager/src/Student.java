@@ -55,11 +55,16 @@ public class Student {
         this.password = password;
     }
 
-    public List<Event> getRegisteredEvents() { 
+    public List<Event> getRegisteredEvents() {
         return registeredEvents;
     }
-    
+
     public void setRegisteredEvents(List<Event> registeredEvents) {
         this.registeredEvents = registeredEvents;
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + username + ")";
     }
 }
